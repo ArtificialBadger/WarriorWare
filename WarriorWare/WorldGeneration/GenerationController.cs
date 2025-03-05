@@ -1,21 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WarriorWareCore.WorldGeneration;
+using WarriorWareCore.WorldGeneration.EmpireGeneration;
 
 namespace WarriorWare.WorldGeneration;
 
 [ApiController]
 [Route("[controller]")]
-public class GenerationController : ControllerBase
+public class GenerationController(IEmpireCreator empireCreator) : ControllerBase
 {
-	public GenerationController()
-	{
-	}
+	private readonly IEmpireCreator empireCreator = empireCreator;	
 
 	[HttpGet("empire")]
 	public async Task<IActionResult> GenerateEmpire()
 	{
-		await Task.CompletedTask;
-		var empire = new Empire(Guid.NewGuid(), "Empire of the Sun", "A powerful empire with a rich history.");
+		var empire = await this.empireCreator.CreateEmpire();
 		return Ok(empire);
 	}
 }
