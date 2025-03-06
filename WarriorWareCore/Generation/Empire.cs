@@ -1,4 +1,4 @@
-﻿namespace WarriorWareCore.WorldGeneration;
+﻿namespace WarriorWareCore.Generation;
 
 public class Empire(Guid id, string name, string description, int? population)
 {

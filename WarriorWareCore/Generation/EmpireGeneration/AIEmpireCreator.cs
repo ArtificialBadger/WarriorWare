@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WarriorWareCore.AI;
 
-namespace WarriorWareCore.WorldGeneration.EmpireGeneration;
+namespace WarriorWareCore.Generation.EmpireGeneration;
 public sealed class AIEmpireCreator(IAzureAICommunicator communicator) : IEmpireCreator
 {
 	private readonly IAzureAICommunicator communicator = communicator;

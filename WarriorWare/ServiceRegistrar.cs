@@ -1,6 +1,6 @@
 ﻿using WarriorWareCore.AI;
 using WarriorWareCore.Secrets;
-using WarriorWareCore.WorldGeneration.EmpireGeneration;
+using WarriorWareCore.Generation.EmpireGeneration;
 
 namespace WarriorWare;
 

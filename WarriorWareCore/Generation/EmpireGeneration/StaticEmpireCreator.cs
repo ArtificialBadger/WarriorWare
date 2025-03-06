@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarriorWareCore.WorldGeneration.EmpireGeneration;
+namespace WarriorWareCore.Generation.EmpireGeneration;
 public sealed class StaticEmpireCreator : IEmpireCreator
 {
 	private static Empire empire = new Empire(Guid.NewGuid(), "Alpha Empire", "A powerful empire with a rich history. Some say it's the first empire to ever exist", Empire.DEFAULT_POPULATION);

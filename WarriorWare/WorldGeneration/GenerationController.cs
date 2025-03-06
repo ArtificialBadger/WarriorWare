@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WarriorWareCore.WorldGeneration;
-using WarriorWareCore.WorldGeneration.EmpireGeneration;
+using WarriorWareCore.Generation;
+using WarriorWareCore.Generation.EmpireGeneration;
 
 namespace WarriorWare.WorldGeneration;
 

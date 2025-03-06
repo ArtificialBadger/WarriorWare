@@ -1,4 +1,4 @@
-﻿namespace WarriorWareCore.WorldGeneration;
+﻿namespace WarriorWareCore.Generation;
 
 public class Event(Guid id, String name, IEnumerable<Happening> happenings)
 {

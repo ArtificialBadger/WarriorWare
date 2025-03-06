@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarriorWareCore.WorldGeneration.EmpireGeneration;
+namespace WarriorWareCore.Generation.EmpireGeneration;
 
 public interface IEmpireCreator
 {
