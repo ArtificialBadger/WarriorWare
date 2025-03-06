@@ -14,9 +14,6 @@ public sealed class AzureAICommunicator : IAzureAICommunicator
 {
 	private readonly ISecretResolver secretResolver;
 
-	private const string endpoint = "https://warriorware3813470836.openai.azure.com/";
-	private const string deployment = "4omini";
-
 	private Lazy<AzureKeyCredential> credential;
 	private Lazy<AzureOpenAIClient> client;
 	private Lazy<ChatClient> chatClient;
@@ -26,8 +23,8 @@ public sealed class AzureAICommunicator : IAzureAICommunicator
 		this.secretResolver = secretResolver;
 
 		credential = new Lazy<AzureKeyCredential>(() => new AzureKeyCredential(this.secretResolver.ResolveSecret("AzureAiApiKey")));
-		client = new Lazy<AzureOpenAIClient>(() => new AzureOpenAIClient(new Uri(endpoint), credential.Value));
-		chatClient = new Lazy<ChatClient>(() => client.Value.GetChatClient(deployment));
+		client = new Lazy<AzureOpenAIClient>(() => new AzureOpenAIClient(new Uri(this.secretResolver.ResolveSecret("AzureAiEndpoint")), credential.Value));
+		chatClient = new Lazy<ChatClient>(() => client.Value.GetChatClient(this.secretResolver.ResolveSecret("AzureAiDeployment")));
 	}
 
 	public async Task<string> GetResponse(List<ChatMessage> messages)
