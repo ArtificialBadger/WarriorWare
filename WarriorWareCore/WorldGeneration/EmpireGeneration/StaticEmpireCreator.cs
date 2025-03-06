@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace WarriorWareCore.WorldGeneration.EmpireGeneration;
 public sealed class StaticEmpireCreator : IEmpireCreator
 {
-	private static Empire empire = new Empire(Guid.NewGuid(), "Alpha Empire", "A powerful empire with a rich history. Some say it's the first empire to ever exist");
+	private static Empire empire = new Empire(Guid.NewGuid(), "Alpha Empire", "A powerful empire with a rich history. Some say it's the first empire to ever exist", Empire.DEFAULT_POPULATION);
 
 	public Task<Empire> CreateEmpire()
 	{
@@ -15,6 +15,6 @@ public sealed class StaticEmpireCreator : IEmpireCreator
 	}
 	public Task<Empire> CreateEmpire(Guid id)
 	{
-		return Task.FromResult(new Empire(id, empire.Name, empire.Description));
+		return Task.FromResult(new Empire(id, empire.Name, empire.Description, empire.Population));
 	}
 }

@@ -37,7 +37,8 @@ public sealed class AIEmpireCreator(IAzureAICommunicator communicator) : IEmpire
 			```
 			{{
 				""name"":""Alpha Empire"",
-				""description"":""The Alpha Empire is the original and most powerful empire in {worldName}, currently ruled by High King Elgrim and his Warriors of Alh.""
+				""description"":""The Alpha Empire is the original and most powerful empire in {worldName}, currently ruled by High King Elgrim and his Warriors of Alh."",
+				""population"":{Empire.DEFAULT_POPULATION}
 			}}
 			```
 			"),
@@ -45,15 +46,13 @@ public sealed class AIEmpireCreator(IAzureAICommunicator communicator) : IEmpire
 
 		var response = await communicator.GetResponse(messages);
 
-		response = response.Replace("```", "");
-		response = response.Replace("json", "");
-		response = response.Trim();
+		response = response.Replace("```", "").Replace("json", "").Trim();
 
 		var deserializedEmpire = JsonSerializer.Deserialize<Empire>(response, new JsonSerializerOptions()
 		{
 			PropertyNameCaseInsensitive = true,
-		}) ?? new Empire(id, "Default Empire", "Something went wrong with the AI");
+		}) ?? new Empire(id, "Default Empire", "Something went wrong with the AI", Empire.DEFAULT_POPULATION);
 
-		return new Empire(id, deserializedEmpire.Name, deserializedEmpire.Description);	
+		return new Empire(id, deserializedEmpire.Name, deserializedEmpire.Description, deserializedEmpire.Population ?? Empire.DEFAULT_POPULATION);	
 	}
 }
