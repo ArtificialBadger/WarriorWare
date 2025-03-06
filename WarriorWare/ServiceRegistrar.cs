@@ -11,7 +11,7 @@ public static class ServiceRegistrar
 	{
 		//services.AddTransient<IEmpireCreator, StaticEmpireCreator>();
 		services.AddTransient<IEmpireCreator, AIEmpireCreator>();
-		services.AddTransient<IWorldGenerator, StaticWorldGenerator>();
+		services.AddTransient<IWorldGenerator, AiWorldGenerator>();
 
 		services.AddSingleton<ISecretResolver, EnvironmentVariableSecretResolver>();
 		services.AddSingleton<IAzureAICommunicator, AzureAICommunicator>();
