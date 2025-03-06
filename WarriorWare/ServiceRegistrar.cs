@@ -1,4 +1,5 @@
-﻿using WarriorWareCore.Secrets;
+﻿using WarriorWareCore.AI;
+using WarriorWareCore.Secrets;
 using WarriorWareCore.WorldGeneration.EmpireGeneration;
 
 namespace WarriorWare;
@@ -7,7 +8,10 @@ public static class ServiceRegistrar
 {
 	public static void RegisterServices(IServiceCollection services)
 	{
-		services.AddTransient<IEmpireCreator, StaticEmpireCreator>();
-		services.AddTransient<ISecretResolver, EnvironmentVariableSecretResolver>(); // Could be singleton for caching
+		//services.AddTransient<IEmpireCreator, StaticEmpireCreator>();
+		services.AddTransient<IEmpireCreator, AIEmpireCreator>();
+		
+		services.AddSingleton<ISecretResolver, EnvironmentVariableSecretResolver>();
+		services.AddSingleton<IAzureAICommunicator, AzureAICommunicator>();
 	}
 }

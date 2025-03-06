@@ -11,7 +11,6 @@ public class NoodleController(ISecretResolver secretResolver) : ControllerBase
 	[HttpGet("noodle")]
 	public IActionResult GetNoodle()
 	{
-		var secret = this.secretResolver.ResolveSecret("AzureAiApiKey");
-		return Ok(secret);
+		return Ok("The Noodler has been invoked!");
 	}
 }
