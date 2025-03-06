@@ -19,8 +19,6 @@ public sealed class AiWorldGenerator(IAzureAICommunicator communicator) : IWorld
 		var messages = new List<ChatMessage>()
 		{
 			new SystemChatMessage(@$"Act as a worldbuilder, specialized in high fantasy worlds that include powerful warriors and mages, mythical beasts, and strange and wild magics.
-
-			You are tasked with creating a world for a game called ""WarriorWare"". The world is set in a high fantasy setting, where powerful warriors and mages roam the land, and mythical beasts and strange magics are commonplace.
 		
 			Always respond with a JSON object representing an ""Empire"". This will be parsed with code, so it has to exactly match the format below.
 		
