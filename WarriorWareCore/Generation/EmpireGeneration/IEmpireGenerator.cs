@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace WarriorWareCore.Generation.EmpireGeneration;
 
-public interface IEmpireCreator
+public interface IEmpireGenerator
 {
-	Task<Empire> CreateEmpire();
-
-	Task<Empire> CreateEmpire(Guid id);
+	Task<Empire> GenerateEmpire(World world);
 }

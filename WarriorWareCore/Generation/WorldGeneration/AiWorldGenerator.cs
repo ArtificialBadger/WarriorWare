@@ -26,9 +26,10 @@ public sealed class AiWorldGenerator(IAzureAICommunicator communicator) : IWorld
 		
 			```
 			{{
-				""name"":""{StaticWorldGenerator.WORLD_NAME}"",
-				""age"":""{StaticWorldGenerator.STARTING_AGE}"",
-				""year"":{StaticWorldGenerator.STARTING_YEAR}
+				""name"":""{StaticWorldGenerator.DEFAULT_NAME}"",
+				""description"":""{StaticWorldGenerator.DEFAULT_DESCRIPTION}"",
+				""age"":""{StaticWorldGenerator.DEFAULT_STARTING_AGE}"",
+				""year"":{StaticWorldGenerator.DEFAULT_STARTING_YEAR}
 			}}
 			```
 			"),
@@ -45,7 +46,7 @@ public sealed class AiWorldGenerator(IAzureAICommunicator communicator) : IWorld
 			PropertyNameCaseInsensitive = true,
 		}) ?? throw new Exception("World Generation Exception");
 
-		return new World(Guid.NewGuid(), deserializedWorld.Name, deserializedWorld.Year, deserializedWorld.Age);
+		return new World(Guid.NewGuid(), deserializedWorld.Name, deserializedWorld.Description, deserializedWorld.Year, deserializedWorld.Age);
 
 	}
 }

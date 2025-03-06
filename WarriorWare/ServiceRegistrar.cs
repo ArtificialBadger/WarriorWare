@@ -10,7 +10,7 @@ public static class ServiceRegistrar
 	public static void RegisterServices(IServiceCollection services)
 	{
 		//services.AddTransient<IEmpireCreator, StaticEmpireCreator>();
-		services.AddTransient<IEmpireCreator, AIEmpireCreator>();
+		services.AddTransient<IEmpireGenerator, AIEmpireGenerator>();
 		services.AddTransient<IWorldGenerator, AiWorldGenerator>();
 
 		services.AddSingleton<ISecretResolver, EnvironmentVariableSecretResolver>();

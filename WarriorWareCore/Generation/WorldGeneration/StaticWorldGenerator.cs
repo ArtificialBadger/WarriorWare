@@ -8,13 +8,14 @@ namespace WarriorWareCore.Generation.WorldGeneration;
 
 public sealed class StaticWorldGenerator : IWorldGenerator
 {
-	public readonly static string WORLD_NAME = "Alteria";
-	public readonly static string STARTING_AGE = "Age of Silver";
-	public readonly static int STARTING_YEAR = 100;
+	public readonly static string DEFAULT_NAME = "Alteria";
+	public readonly static string DEFAULT_DESCRIPTION = "Alteria";
+	public readonly static string DEFAULT_STARTING_AGE = "Age of Silver";
+	public readonly static int DEFAULT_STARTING_YEAR = 100;
 
 	public Task<World> GenerateWorld()
 	{
-		var world = new World(Guid.NewGuid(), WORLD_NAME, STARTING_YEAR, STARTING_AGE);
+		var world = new World(Guid.NewGuid(), DEFAULT_NAME, DEFAULT_DESCRIPTION, DEFAULT_STARTING_YEAR, DEFAULT_STARTING_AGE);
 		return Task.FromResult(world);
 	}
 }

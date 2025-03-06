@@ -7,10 +7,10 @@ namespace WarriorWare.Generation;
 
 [ApiController]
 [Route("[controller]")]
-public class GenerationController(IWorldGenerator worldGenerator, IEmpireCreator empireCreator) : ControllerBase
+public class GenerationController(IWorldGenerator worldGenerator, IEmpireGenerator empireCreator) : ControllerBase
 {
 	private readonly IWorldGenerator worldGenerator = worldGenerator;
-	private readonly IEmpireCreator empireCreator = empireCreator;
+	private readonly IEmpireGenerator empireCreator = empireCreator;
 
 	[HttpGet("world")]
 	public async Task<IActionResult> GenerateWorld()
@@ -22,7 +22,9 @@ public class GenerationController(IWorldGenerator worldGenerator, IEmpireCreator
 	[HttpGet("empire")]
 	public async Task<IActionResult> GenerateEmpire()
 	{
-		var empire = await this.empireCreator.CreateEmpire();
-		return Ok(empire);
+		var world = await this.worldGenerator.GenerateWorld();
+
+		var empire = await this.empireCreator.GenerateEmpire(world);
+		return Ok(new List<object>() { world, empire } ); // Stupid and bad
 	}
 }
