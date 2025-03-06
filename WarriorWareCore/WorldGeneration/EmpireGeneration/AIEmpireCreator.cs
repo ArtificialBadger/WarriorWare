@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using WarriorWareCore.AI;
 
@@ -18,13 +20,40 @@ public sealed class AIEmpireCreator(IAzureAICommunicator communicator) : IEmpire
 
 	public async Task<Empire> CreateEmpire(Guid id)
 	{
+		var worldName = "Alteria";
+		var startingAge = "Age of Silver";
+		var startingYear = "100";
+
 		var messages = new List<ChatMessage>()
 		{
-			new UserChatMessage("Generate an custom Empire in a unique magical high fantasy world. Give only the text for the description of this empire.")
+			new UserChatMessage(@$"Consider the high fantasy world of {worldName}. This world is filled with magic, monsters, and political intrigue.
+		
+			{worldName} has existed for a long time. It is currently year {startingYear} of {startingAge}
+		
+			Act as a worldbuilder of {worldName}, your current task is to create an empire. The term empire here is used generically, so it can be a kingdom, a city-state, or any other form of government from any flavor of high fantasy.
+		
+			Always respond with a JSON object representing an ""Empire"". This will be parsed with code, so it has to exactly match the format below.
+		
+			```
+			{{
+				""name"":""Alpha Empire"",
+				""description"":""The Alpha Empire is the original and most powerful empire in {worldName}, currently ruled by High King Elgrim and his Warriors of Alh.""
+			}}
+			```
+			"),
 		};
 
 		var response = await communicator.GetResponse(messages);
 
-		return new Empire(id, "Ai Generated Empire", response);	
+		response = response.Replace("```", "");
+		response = response.Replace("json", "");
+		response = response.Trim();
+
+		var deserializedEmpire = JsonSerializer.Deserialize<Empire>(response, new JsonSerializerOptions()
+		{
+			PropertyNameCaseInsensitive = true,
+		}) ?? new Empire(id, "Default Empire", "Something went wrong with the AI");
+
+		return new Empire(id, deserializedEmpire.Name, deserializedEmpire.Description);	
 	}
 }
