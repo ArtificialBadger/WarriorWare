@@ -20,11 +20,11 @@ public class GenerationController(IWorldGenerator worldGenerator, IEmpireGenerat
 	}
 
 	[HttpGet("empire")]
-	public async Task<IActionResult> GenerateEmpire()
+	public async Task<IActionResult> GenerateEmpire([FromQuery] int count = 1)
 	{
 		var world = await this.worldGenerator.GenerateWorld();
 
-		var empire = await this.empireCreator.GenerateEmpire(world);
-		return Ok(new List<object>() { world, empire } ); // Stupid and bad
+		var empires = await this.empireCreator.GenerateEmpires(world, count);
+		return Ok(new List<object>() { world, empires } ); // Stupid and bad, but easy to see what's going on
 	}
 }

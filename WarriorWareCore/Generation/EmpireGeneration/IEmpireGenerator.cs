@@ -8,5 +8,5 @@ namespace WarriorWareCore.Generation.EmpireGeneration;
 
 public interface IEmpireGenerator
 {
-	Task<Empire> GenerateEmpire(World world);
+	Task<List<Empire>> GenerateEmpires(World world, int empireCount = 1);
 }
