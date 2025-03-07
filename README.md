@@ -20,4 +20,4 @@ Alternatively, creating a new AI Communicator class is possible, but may require
 
 ## Contributing
 
-Contributions would certainly be unexpected, as this project is unlikely to be of interest to anyone.
+Contributions would certainly be unexpected, as this project is unlikely to be of interest.
