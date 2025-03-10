@@ -16,7 +16,7 @@ In the associated secrets file (in Visual Studio, right click on the WarriorWare
 - UserSecrets:AzureAiEndpoint
 - UserSecrets:AzureAiDeployment
 
-Alternatively, creating a new AI Communicator class is possible, but may require translating the Azure.AI objects into similar objects of a differnt SDK. This is not overly complex and could be done easily if using a local LLM or other hosted AI service. Currently there are no plans to add LLM connectivity other than Azure OpenAI.
+Alternatively, creating a new AI Communicator class is possible, but may require translating the Azure.AI objects into similar objects of a different SDK. This is not overly complex and could be done easily if using a local LLM or other hosted AI service. Currently there are no plans to add LLM connectivity other than Azure OpenAI.
 
 ## Contributing
 
