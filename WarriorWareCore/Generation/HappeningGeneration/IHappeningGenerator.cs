@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 namespace WarriorWareCore.Generation.HappeningGeneration;
 public interface IHappeningGenerator
 {
-	public Task<Happening> GenerateHappening();
+	public Task<IEnumerable<Happening>> GenerateHappenings(World world, List<Empire> empires);
 }
