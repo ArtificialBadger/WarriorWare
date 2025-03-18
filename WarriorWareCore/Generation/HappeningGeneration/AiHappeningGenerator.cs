@@ -10,52 +10,65 @@ using WarriorWareCore.Generation.EmpireGeneration;
 
 namespace WarriorWareCore.Generation.HappeningGeneration;
 
-public sealed class AiHappeningGenerator(IAzureAICommunicator communicator) : IHappeningGenerator
+public sealed class AIHappeningGenerator(IAzureAICommunicator communicator) : IHappeningGenerator
 {
 	private readonly IAzureAICommunicator communicator = communicator;
 
 	public async Task<IEnumerable<Happening>> GenerateHappenings(World world, List<Empire> empires)
 	{
-		throw new NotImplementedException("Haven't implemented this yet");
-		//		var messages = new List<ChatMessage>()
-		//		{
-		//			new SystemChatMessage(@$"Consider the high fantasy world of {world.Name}. The description of the world is as follows: {world.Description}
+		var messages = new List<ChatMessage>()
+				{
+					new SystemChatMessage(@$"Consider the high fantasy world of {world.Name}. The description of the world is as follows: {world.Description}
 
-		//{world.Name} has existed for a long time. It is currently year {world.Year} of {world.Age}
+{world.Name} has existed for a long time. It is currently year {world.Year} of {world.Age}
 
-		//Act as a worldbuilder of {world.Name}, your current task is to create an empire. The term empire here is used generically, so it can be a kingdom, a city-state, or any other form of government from any flavor of high fantasy.
+{world.Name} is home to the following empires: {EmpiresToString(empires)}.
 
-		//Always respond with a JSON object representing a list of ""Empires"" as defined below. This will be parsed with code, so it has to exactly match the format below.
+Act as a worldbuilder, and generate a list of 2 new happenings that could occur in this world. A happening is something that happens to an empire in the world, such as natural disater, plague, war, or era of prosperity. Each happening has an impact on the population of the empire, represented as a positive or negative integer. An event such as a war can impact multiple empires, in this case return a new happening for each affected empire.
 
-		//```
-		//[
-		//	{{
-		//		""name"":""{StaticEmpireGenerator.DEFAULT_NAME}"",
-		//		""description"":""{StaticEmpireGenerator.DEFAULT_DESCRIPTION}"",
-		//		""population"":{StaticEmpireGenerator.DEFAULT_POPULATION}
-		//	}},
-		//	{{
-		//		""name"":""{StaticEmpireGenerator.DEFAULT_NAME_2}"",
-		//		""description"":""{StaticEmpireGenerator.DEFAULT_DESCRIPTION_2}"",
-		//		""population"":{StaticEmpireGenerator.DEFAULT_POPULATION_2}
-		//	}}
-		//]
-		//			```
-		//			"),
-		//			//new UserChatMessage($"Generate {empireCount} new {empireConjugation} in previously specified JSON syntax. The output should be an array with {empireCount} elements")
-		//		};
+Always respond with a JSON object representing a list of ""Happenings"" as defined below. This will be parsed with code, so it has to exactly match the format below.
 
-		//		var response = await communicator.GetResponse(messages);
+```
+[
+	{{
+		""empireName"":""{StaticHappeningGenerator.DEFAULT_EMPIRE_NAME}"",
+		""description"":""{StaticHappeningGenerator.DEFAULT_DESCRIPTION}"",
+		""populationChange"":{StaticHappeningGenerator.DEFAULT_POPULATION_CHANGE}
+	}},
+]
+```
+"),
+					new UserChatMessage($"Generate 2-4 new happenings in the previously specified JSON syntax. The output should be a JSON array with 2-5 elements")
+				};
 
-		//		response = response.Replace("```", "").Replace("json", "").Trim();
+		var response = await communicator.GetResponse(messages);
 
-		//		var deserializedEmpireList = JsonSerializer.Deserialize<List<Empire>>(response, new JsonSerializerOptions()
-		//		{
-		//			PropertyNameCaseInsensitive = true,
-		//		}) ?? throw new Exception("Empire Generation/Parsing Exception");
+		response = response.Replace("```", "").Replace("json", "").Trim();
 
-		//		return deserializedEmpireList
-		//			.Select(deserializedEmpire => new Empire(Guid.NewGuid(), deserializedEmpire.Name, deserializedEmpire.Description, deserializedEmpire.Population))
-		//			.ToList();
+		var deserializedHappeningList = JsonSerializer.Deserialize<List<Happening>>(response, new JsonSerializerOptions()
+		{
+			PropertyNameCaseInsensitive = true,
+		}) ?? throw new Exception("Happening Generation/Parsing Exception");
+
+		// TODO: Map the empirename to a guid
+		return deserializedHappeningList
+			.Select(deserializedHappening => new Happening(Guid.NewGuid(), Guid.NewGuid(), deserializedHappening.Description, deserializedHappening.PopulationChange))
+			.ToList();
+	}
+
+	private string EmpiresToString(List<Empire> empires)
+	{
+		var sb = new StringBuilder();
+		foreach (var empire in empires)
+		{
+			sb.Append(empire.Name);
+			sb.Append(": (");
+			sb.Append(empire.Description);
+			sb.Append("), (Current Population: ");
+			sb.Append(empire.Population);
+			sb.Append("), ");
+		}
+		sb.Remove(sb.Length - 2, 2); // Remove the last comma and space
+		return sb.ToString();
 	}
 }

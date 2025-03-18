@@ -10,7 +10,7 @@ using WarriorWareCore.AI;
 
 namespace WarriorWareCore.Generation.WorldGeneration;
 
-public sealed class AiWorldGenerator(IAzureAICommunicator communicator) : IWorldGenerator
+public sealed class AIWorldGenerator(IAzureAICommunicator communicator) : IWorldGenerator
 {
 	private readonly IAzureAICommunicator communicator = communicator;
 
