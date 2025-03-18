@@ -52,7 +52,7 @@ Always respond with a JSON object representing a list of ""Happenings"" as defin
 
 		// TODO: Map the empirename to a guid
 		return deserializedHappeningList
-			.Select(deserializedHappening => new Happening(Guid.NewGuid(), Guid.NewGuid(), deserializedHappening.Description, deserializedHappening.PopulationChange))
+			.Select(deserializedHappening => new Happening(Guid.NewGuid(), Guid.NewGuid(), deserializedHappening.Description, deserializedHappening.PopulationChange) { EmpireName = deserializedHappening.EmpireName })
 			.ToList();
 	}
 
