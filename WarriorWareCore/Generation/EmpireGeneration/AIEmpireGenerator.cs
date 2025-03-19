@@ -41,8 +41,8 @@ Always respond with a JSON object representing a list of ""Empires"" as defined 
 		""population"":{StaticEmpireGenerator.DEFAULT_POPULATION_2}
 	}}
 ]
-			```
-			"),
+```
+"),
 			new UserChatMessage($"Generate {empireCount} new {empireConjugation} in previously specified JSON syntax. The output should be an array with {empireCount} elements")
 		};
 
