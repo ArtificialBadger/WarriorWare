@@ -31,7 +31,7 @@ public sealed class AzureAICommunicator : IAzureAICommunicator
 	{
 		var options = new ChatCompletionOptions
 		{
-			Temperature = 1.1f,
+			Temperature = 0.9f,
 			MaxOutputTokenCount = 800,
 			TopP = 0.95f,
 			FrequencyPenalty = 0f,
