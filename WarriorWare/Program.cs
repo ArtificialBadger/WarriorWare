@@ -1,7 +1,15 @@
+using System.Net;
 using WarriorWare;
 using WarriorWare.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+	serverOptions.AllowSynchronousIO = true;
+	serverOptions.Listen(IPAddress.Any, 5111, listenOptions => { });
+	serverOptions.Listen(IPAddress.IPv6Any, 5111, listenOptions => { });
+});
 
 builder.Services.AddControllers();
 
