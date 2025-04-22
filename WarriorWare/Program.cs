@@ -6,9 +6,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-	serverOptions.AllowSynchronousIO = true;
 	serverOptions.Listen(IPAddress.Any, 5111, listenOptions => { });
 	serverOptions.Listen(IPAddress.IPv6Any, 5111, listenOptions => { });
+
+	serverOptions.Listen(IPAddress.Any, 7111, listenOptions => { listenOptions.UseHttps(); });
+	serverOptions.Listen(IPAddress.IPv6Any, 7111, listenOptions => { listenOptions.UseHttps(); });
 });
 
 builder.Services.AddControllers();
