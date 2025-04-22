@@ -13,9 +13,9 @@ public sealed class StaticWorldGenerator : IWorldGenerator
 	public readonly static string DEFAULT_STARTING_AGE = "Age of Silver";
 	public readonly static int DEFAULT_STARTING_YEAR = 100;
 
-	public Task<World> GenerateWorld()
+	public Task<World> GenerateWorld(string? keywords = null)
 	{
-		var world = new World(Guid.NewGuid(), DEFAULT_NAME, DEFAULT_DESCRIPTION, DEFAULT_STARTING_YEAR, DEFAULT_STARTING_AGE);
+		var world = new World(Guid.NewGuid(), DEFAULT_NAME, DEFAULT_DESCRIPTION + " " + keywords, DEFAULT_STARTING_YEAR, DEFAULT_STARTING_AGE);
 		return Task.FromResult(world);
 	}
 }

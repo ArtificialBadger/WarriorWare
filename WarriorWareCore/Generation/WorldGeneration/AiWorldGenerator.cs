@@ -14,13 +14,20 @@ public sealed class AIWorldGenerator(IAzureAICommunicator communicator) : IWorld
 {
 	private readonly IAzureAICommunicator communicator = communicator;
 
-	public async Task<World> GenerateWorld()
+	public async Task<World> GenerateWorld(string? keywords = null)
 	{
+		if (keywords is null)
+		{
+			keywords = "dwarves, mystic stones, deep-dwelling demons";
+		}
+
 		var messages = new List<ChatMessage>()
 		{
 			new SystemChatMessage(@$"Act as a worldbuilder, specialized in high fantasy worlds that include any number of fantastical things such as powerful warriors and mages, mythical beasts, and strange and wild magics.
 		
 Always respond with a JSON object representing a ""World"", as defined below. This will be parsed with code, so it has to exactly match the format below.
+
+Here are some additional keywords to help you generate the world: {keywords}
 		
 ```
 {{

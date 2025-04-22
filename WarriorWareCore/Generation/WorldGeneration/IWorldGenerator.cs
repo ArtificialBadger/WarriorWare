@@ -8,5 +8,5 @@ namespace WarriorWareCore.Generation.WorldGeneration;
 
 public interface IWorldGenerator
 {
-	public Task<World> GenerateWorld();
+	public Task<World> GenerateWorld(string? keywords = null);
 }

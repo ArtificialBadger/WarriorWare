@@ -15,9 +15,9 @@ public class GenerationController(IWorldGenerator worldGenerator, IEmpireGenerat
 	private readonly IHappeningGenerator happeningGenerator = happeningGenerator;
 
 	[HttpGet("world")]
-	public async Task<IActionResult> GenerateWorld()
+	public async Task<IActionResult> GenerateWorld([FromQuery] string? keywords)
 	{
-		var world = await this.worldGenerator.GenerateWorld();
+		var world = await this.worldGenerator.GenerateWorld(keywords);
 		return Ok(world);
 	}
 
