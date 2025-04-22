@@ -20,7 +20,7 @@ ServiceRegistrar.RegisterServices(builder.Services);
 var secrets = builder.Configuration
 	.AsEnumerable()
 	.Where(kvp => kvp.Key.StartsWith("UserSecrets:") && kvp.Value != null)
-	.ToDictionary(kvp => kvp.Key.Remove(0,12), kvp => kvp.Value!);
+	.ToDictionary(kvp => kvp.Key[12..], kvp => kvp.Value!);
 
 UserSecretToEnvironmentVariableWriter.WriteAllUserSecretsToEnvironmentVariables(secrets);
 
