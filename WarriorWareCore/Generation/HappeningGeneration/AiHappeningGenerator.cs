@@ -38,7 +38,7 @@ Always respond with a JSON object representing a list of ""Happenings"" as defin
 ]
 ```
 "),
-					new UserChatMessage($"Generate 2-4 new happenings in the previously specified JSON syntax. The output should be a JSON array with 2-5 elements")
+					new UserChatMessage($"Generate 2-4 new happenings in the previously specified JSON syntax. The output should be valid JSON array.")
 				};
 
 		var response = await communicator.GetResponse(messages);
