@@ -2,15 +2,18 @@ using System.Net;
 using WarriorWare;
 using WarriorWare.Secrets;
 
+const int HttpPort = 5111;
+const int HttpsPort = 7111;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-	serverOptions.Listen(IPAddress.Any, 5111, listenOptions => { });
-	serverOptions.Listen(IPAddress.IPv6Any, 5111, listenOptions => { });
+	serverOptions.Listen(IPAddress.Any, HttpPort, listenOptions => { });
+	serverOptions.Listen(IPAddress.IPv6Any, HttpPort, listenOptions => { });
 
-	serverOptions.Listen(IPAddress.Any, 7111, listenOptions => { listenOptions.UseHttps(); });
-	serverOptions.Listen(IPAddress.IPv6Any, 7111, listenOptions => { listenOptions.UseHttps(); });
+	serverOptions.Listen(IPAddress.Any, HttpsPort, listenOptions => { listenOptions.UseHttps(); });
+	serverOptions.Listen(IPAddress.IPv6Any, HttpsPort, listenOptions => { listenOptions.UseHttps(); });
 });
 
 builder.Services.AddControllers();
